@@ -35,6 +35,16 @@ const loading = (bool)=>({
 const fetchError = (error)=>({
   type: FETCH_ERROR,
   payload: error
+});
+
+const addSmurf = (smurf)=>({
+  type: ADDSMURF,
+  payload: smurf
+});
+
+const deleteSmurf = (smurf)=>({
+  type: DELETESMURF,
+  payload: smurf
 })
 
 export const fetchSmurfs=()=>async dispatch =>{
@@ -42,6 +52,30 @@ export const fetchSmurfs=()=>async dispatch =>{
   try {
     const response = await axois.get('http://localhost:3333/smurfs')
     dispatch(getSmurf(response.data))
+  } catch (error) {
+    dispatch(fetchError(error.message))
+  }finally{
+    dispatch(loading(false))
+  }
+}
+
+export const fetchAddSmurfs= (smurfData)=> async dispatch =>{
+  dispatch(loading(true))
+  try {
+    const response = await axois.post('http://localhost:3333/smurfs',smurfData)
+    dispatch(addSmurf(response.data))
+  } catch (error) {
+    dispatch(fetchError(error.message))
+  }finally{
+    dispatch(loading(false))
+  }
+}
+
+export const fetchDeleteSmurfs= (id)=> async dispatch =>{
+  dispatch(loading(true))
+  try {
+    const response = await axois.delete(`http://localhost:3333/smurfs/${id}`)
+    dispatch(deleteSmurf(response.data))
   } catch (error) {
     dispatch(fetchError(error.message))
   }finally{

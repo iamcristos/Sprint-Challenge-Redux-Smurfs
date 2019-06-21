@@ -16,6 +16,26 @@ const reducer = (state=initialState, action)=>{
         ...state,
         smurfs: action.payload
       }
+    case actions.LOADING:
+      return {
+        ...state, 
+        loading:action.payload
+      }
+    case actions.FETCH_ERROR:
+      return {
+        ...state,
+        error: action.payload
+      }
+    case actions.ADDSMURF:
+      return {
+        ...state,
+        smurfs: action.payload
+      }
+    case actions.DELETESMURF:
+      return {
+        ...state,
+        smurfs: action.payload
+      }
       default:
         return state
   }
