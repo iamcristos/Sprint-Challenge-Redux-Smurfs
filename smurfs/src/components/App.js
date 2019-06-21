@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import { connect } from 'react-redux';
-import {fetchSmurfs, fetchAddSmurfs, fetchDeleteSmurfs} from '../actions'
+import {fetchSmurfs, fetchAddSmurfs, fetchDeleteSmurfs} from '../actions';
+import PropTypes from 'prop-types';
+import AddSmurfs from './addSurf'
 /*
  to wire this component up you're going to need a few things.
  I'll let you do this part on your own. 
@@ -9,26 +11,8 @@ import {fetchSmurfs, fetchAddSmurfs, fetchDeleteSmurfs} from '../actions'
  `How do I ensure that my component links the state to props?`
  */
 class App extends Component {
-  constructor(props){
-    super(props)
-    this.name = React.createRef();
-    this.age = React.createRef();
-    this.height = React.createRef()
-  }
-
   componentDidMount(){
     this.props.fetchSmurfs()
-  }
-
-  onSubHandler = (e)=>{
-    e.preventDefault()
-    const name = this.name.current.value;
-    const age = this.age.current.value;
-    const height = this.height.current.value;
-    if(name.trim() && age.trim() && height.trim()) {
-      const data= {name, age, height}
-      this.props.fetchAddSmurfs(data);
-    }
   }
 
   onDeleteHandler = (e)=>(id)=>{
@@ -39,23 +23,24 @@ class App extends Component {
     const {smurfs} = this.props;
     return (
       <div className="App">
-        <div className="Container">
+        <div className="Container" style={{width:'60%'}}>
           {smurfs && smurfs.map(smurf=>(
               <div key={smurf.id} className="Smurfs">
-                <h2>{smurf.name}</h2>
-                <p>{smurf.age}</p>
-                <p>{smurf.height}</p>
-                <button onClick={(e)=>this.onDeleteHandler(e)(smurf.id)}>Delete</button>
+                <span style={{color:"Red"}}
+                onClick=
+                {(e)=>this.onDeleteHandler(e)(smurf.id)
+                }>X</span>
+                <div style={{marginLeft:'30%', textAlign:"center"}}>
+                  <h2>{smurf.name}</h2>
+                  <p>{smurf.age}</p>
+                  <p>{smurf.height}</p>
+                  <button>Update</button>
+                </div>
               </div>
           ))}
         </div>
-        <div className="Container">
-          <form onSubmit={(e)=> this.onSubHandler(e)}>
-            <input type="text" placeholder="name" ref={this.name}/>
-            <input type="text" placeholder="age" ref={this.age}/>
-            <input type="text" placeholder="height" ref={this.height}/>
-            <button>Add</button>
-          </form>
+        <div className="Container" style={{width:'30%'}}>
+          <AddSmurfs/>
         </div>
       </div>
     );
@@ -71,3 +56,12 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   fetchSmurfs, fetchAddSmurfs, fetchDeleteSmurfs
 })(App);
+
+App.propTypes = {
+  fetchAddSmurfs: PropTypes.func,
+  fetchDeleteSmurfs: PropTypes.func,
+  fetchSmurfs: PropTypes.func,
+  smurfs: PropTypes.array,
+  error: PropTypes.string,
+  loading: PropTypes.bool,
+}

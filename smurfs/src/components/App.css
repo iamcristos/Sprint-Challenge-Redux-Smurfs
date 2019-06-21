@@ -1,6 +1,5 @@
 .App {
   display: flex;
-  /* flex-wrap: wrap; */
   width: 90%;
   justify-content: space-around;
   margin: 1rem;
@@ -9,32 +8,75 @@
 
 .Container {
   display: flex;
-  /* flex-direction: column; */
   flex-wrap: wrap;
-  width: 45%;
+  width: 40%;
+  border: 1px solid green;
 }
 
 .Container .Smurfs {
   display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: center;
-  border: 1px solid red;
+  width: 40%;
+  margin: 1rem;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border: 1px solid #4A8ECC;
+}
+
+.Container .Smurfs:hover {
+  transition: all 5;
+  transform: scale(1,1.1)
 }
 
 .Container .Smurfs button {
-  background-color: #4A8ECC;
+  background-color: #55A240;
+  color: white;
   width: 90px;
-  font-size: 20px
+  font-size: 20px;
+  margin: 1rem
+}
+
+.Container .Smurfs button:hover{
+  background-color: white;
+  color: #55A240;
+  width: 95px;
+  cursor: pointer;
+}
+
+.Container .Smurfs span:hover{
+  cursor: pointer;
 }
 
 .Container form{
   display: flex;
   flex-direction: column;
+  width: 100%;
+}
+
+.Container form:hover{
+  transition: all 5;
+  transform: scaleY(1.03)
 }
 
 .Container form input{
-  /* width: 100px; */
+  margin: 1rem;
+  padding-left: 2rem;
+  outline: none;
+  height: 50px;
+}
+
+.Container form button{
+  margin: 1rem;
+  background-color: #55A240;
+  color: white;
+  height: 30px;
+  cursor: pointer;
+}
+
+.Container form button:hover{
+  transition: all 5 ease-in-out;
+  font-size: 20px;
+  background-color: white;
+  color: #55A240;
 }
 
 
